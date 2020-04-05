@@ -6,8 +6,9 @@ services:
     labels:
       - "traefik.http.routers.keeweb.rule=Host(`${KEEWEB_ENDPOINT}`)"
       - "traefik.http.routers.keeweb.tls=true"
-      - "traefik.http.services.keeweb.loadbalancer.server.port=443"
-      - "traefik.http.services.keeweb.loadbalancer.server.scheme=https"
+      - "traefik.http.routers.keeweb.tls.certResolver=le"
+      - "traefik.http.routers.keeweb.tls.domains[0].main=${DOMAIN}"
+      - "traefik.http.routers.keeweb.tls.domains[0].sans[0]=*.${DOMAIN}"
     environment:
       - "DH_SIZE=512"
       - "CN=${KEEWEB_ENDPOINT}"
