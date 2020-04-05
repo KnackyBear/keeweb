@@ -12,8 +12,8 @@ services:
     environment:
       - "DH_SIZE=512"
       - "CN=${KEEWEB_ENDPOINT}"
-#    volumes:
-#      - "${EXT_DIR}:/etc/nginx/external/"
+    volumes:
+      - "${EXT_DIR}:/etc/nginx/external/"
     networks:
       - web
 
