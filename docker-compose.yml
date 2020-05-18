@@ -14,6 +14,7 @@ services:
       - "CN=${KEEWEB_ENDPOINT}"
     volumes:
       - "${EXT_DIR}:/etc/nginx/external/"
+      - "${EXT_ARC}:${CON_ARC}"
     networks:
       - web
 
