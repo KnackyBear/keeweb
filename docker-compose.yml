@@ -9,6 +9,7 @@ services:
       - "traefik.http.routers.keeweb.tls.certResolver=le"
       - "traefik.http.routers.keeweb.tls.domains[0].main=${DOMAIN}"
       - "traefik.http.routers.keeweb.tls.domains[0].sans[0]=*.${DOMAIN}"
+      - "traefik.http.services.keeweb.loadbalancer.server.scheme=https"
       - "traefik.http.services.keeweb.loadbalancer.server.port=443"
     environment:
       - "DH_SIZE=512"
