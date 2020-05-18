@@ -26,13 +26,13 @@ then
   openssl dhparam -out "$DH" $DH_SIZE
 fi
 
-if [ ! -e "/etc/nginx/external/cert.pem" ] || [ ! -e "/etc/nginx/external/key.pem" ]
+if [ ! -e "/etc/nginx/external/fullchain.pem" ] || [ ! -e "/etc/nginx/external/privkey.pem" ]
 then
   echo ">> generating self signed cert"
   openssl req -x509 -newkey rsa:4086 \
   -subj "/C=XX/ST=XXXX/L=XXXX/O=XXXX/CN=$CN" \
-  -keyout "/etc/nginx/external/key.pem" \
-  -out "/etc/nginx/external/cert.pem" \
+  -keyout "/etc/nginx/external/privkey.pem" \
+  -out "/etc/nginx/external/fullchain.pem" \
   -days 3650 -nodes -sha256
 fi
 
