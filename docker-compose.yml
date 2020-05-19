@@ -4,12 +4,13 @@ services:
     image: jnvinet/keeweb
     container_name: 'keeweb'
     labels:
-      - "traefik.tcp.routers.keeweb.rule=HostSNI(`${KEEWEB_ENDPOINT}`)"
-      - "traefik.tcp.routers.keeweb.tls=true"
-      - "traefik.tcp.routers.keeweb.tls.passthrough=true"
-      - "traefik.tcp.routers.keeweb.tls.domains[0].main=${DOMAIN}"
-      - "traefik.tcp.routers.keeweb.tls.domains[0].sans[0]=*.${DOMAIN}"
-      - "traefik.tcp.services.keeweb.loadbalancer.server.port=443"
+      - "traefik.http.routers.keeweb.rule=Host(`${KEEWEB_ENDPOINT}`)"
+      - "traefik.http.routers.keeweb.tls=true"
+      - "traefik.http.routers.keeweb.tls.certResolver=le"
+      - "traefik.http.routers.keeweb.tls.domains[0].main=${DOMAIN}"
+      - "traefik.http.routers.keeweb.tls.domains[0].sans[0]=*.${DOMAIN}"
+      - "traefik.http.services.keeweb.loadbalancer.server.scheme=https"
+      - "traefik.http.services.keeweb.loadbalancer.server.port=443"
     environment:
       - "DH_SIZE=1024"
       - "CN=${KEEWEB_ENDPOINT}"
