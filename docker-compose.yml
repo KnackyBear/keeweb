@@ -5,7 +5,11 @@ services:
     container_name: 'keeweb'
     labels:
       - "traefik.tcp.routers.keeweb.rule=HostSNI(`${KEEWEB_ENDPOINT}`)"
+      - "traefik.tcp.routers.keeweb.tls=true"
       - "traefik.tcp.routers.keeweb.tls.passthrough=true"
+      - "traefik.tcp.routers.keeweb.tls.domains[0].main=${DOMAIN}"
+      - "traefik.tcp.routers.keeweb.tls.domains[0].sans[0]=*.${DOMAIN}"
+      - "traefik.tcp.services.keeweb.loadbalancer.server.port=443"
     environment:
       - "DH_SIZE=1024"
       - "CN=${KEEWEB_ENDPOINT}"
