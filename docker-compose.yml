@@ -12,7 +12,7 @@ services:
       - "traefik.http.services.keeweb.loadbalancer.server.scheme=https"
       - "traefik.http.services.keeweb.loadbalancer.server.port=443"
     environment:
-      - "DH_SIZE=1024"
+      - "DH_SIZE=2048"
       - "CN=${KEEWEB_ENDPOINT}"
     volumes:
       - "${EXT_DIR}:/etc/nginx/external/"
