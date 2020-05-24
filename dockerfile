@@ -15,11 +15,22 @@
 
 # Based on antelle.net@gmail.com official dockerfile
 
+# Build stage
+FROM jnvinet/devbox
+LABEL maintainer "Julien Vinet <contact@julienvinet.dev>"
+
+WORKDIR /tmp/
+
+RUN curl https://raw.githubusercontent.com/keeweb/keeweb/develop/dev-env.sh | bash -
+WORKDIR /tmp/keeweb/keeweb/
+RUN npm install && grunt --force
+
+# Run stage
 FROM nginx:stable
 LABEL maintainer "Julien Vinet <contact@julienvinet.dev>"
 
 # install
-RUN apt-get -y update && apt-get -y install openssl curl unzip
+RUN apt-get -y update && apt-get -y install openssl wget unzip
 
 # setup nginx
 RUN rm -rf /etc/nginx/conf.d/*; \
@@ -34,17 +45,14 @@ ADD keeweb.conf /etc/nginx/conf.d/keeweb.conf
 ADD entrypoint.sh /opt/entrypoint.sh
 RUN chmod a+x /opt/entrypoint.sh
 
-# add keeweb files
-ADD dist keeweb
+COPY --from=0 /tmp/keeweb/keeweb/dist keeweb
 
 # clone keeweb plugins
-RUN curl -Ss -L -O https://github.com/keeweb/keeweb-plugins/archive/master.zip; \
+RUN wget https://github.com/keeweb/keeweb-plugins/archive/master.zip; \
     unzip master.zip; \
     rm master.zip; \
     mv keeweb-plugins-master/docs keeweb/plugins; \
     rm -rf keeweb-plugins-master;
-
-RUN apt-get -y remove curl unzip
 
 ENTRYPOINT ["/opt/entrypoint.sh"]
 CMD ["nginx"]
