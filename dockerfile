@@ -19,6 +19,8 @@
 FROM jnvinet/devbox
 LABEL maintainer "Julien Vinet <contact@julienvinet.dev>"
 
+ARG SERVERNAME
+
 WORKDIR /tmp/
 
 RUN curl https://raw.githubusercontent.com/keeweb/keeweb/develop/dev-env.sh | bash -
@@ -33,6 +35,8 @@ LABEL maintainer "Julien Vinet <contact@julienvinet.dev>"
 RUN apt-get -y update && apt-get -y install openssl wget unzip
 
 # setup nginx
+ARG SERVERNAME
+
 RUN rm -rf /etc/nginx/conf.d/*; \
     mkdir -p /etc/nginx/external
 
@@ -41,6 +45,7 @@ RUN sed -i 's/access_log.*/access_log \/dev\/stdout;/g' /etc/nginx/nginx.conf; \
     sed -i 's/^pid/daemon off;\npid/g' /etc/nginx/nginx.conf
 
 ADD keeweb.conf /etc/nginx/conf.d/keeweb.conf
+RUN sed -i "s/server_name.*/servername ${SERVERNAME};/g" /etc/nginx/conf.d/keeweb.conf
 
 ADD entrypoint.sh /opt/entrypoint.sh
 RUN chmod a+x /opt/entrypoint.sh
