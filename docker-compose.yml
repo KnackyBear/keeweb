@@ -1,13 +1,11 @@
 version: '3.2'
 services:
   keeweb:
-    image: jvinet/keeweb:compose
-    build:
-      context: .
-      dockerfile: dockerfile
-      args: 
-        - SERVERNAME=${KEEWEB_ENDPOINT}
+    image: antelle/keeweb
     container_name: 'keeweb'
+    ports:
+      - "443:443"
+      - "80:80"
     labels:
       - "traefik.http.routers.keeweb.rule=Host(`${KEEWEB_ENDPOINT}`)"
       - "traefik.http.routers.keeweb.tls=true"
