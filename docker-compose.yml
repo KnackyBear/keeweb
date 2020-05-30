@@ -3,9 +3,6 @@ services:
   keeweb:
     image: antelle/keeweb
     container_name: 'keeweb'
-    ports:
-      - "443:443"
-      - "80:80"
     labels:
       - "traefik.http.routers.keeweb.rule=Host(`${KEEWEB_ENDPOINT}`)"
       - "traefik.http.routers.keeweb.tls=true"
