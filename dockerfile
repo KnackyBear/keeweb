@@ -45,7 +45,7 @@ RUN sed -i 's/access_log.*/access_log \/dev\/stdout;/g' /etc/nginx/nginx.conf; \
     sed -i 's/^pid/daemon off;\npid/g' /etc/nginx/nginx.conf
 
 ADD keeweb.conf /etc/nginx/conf.d/keeweb.conf
-RUN sed -i "s/server_name.*/servername ${SERVERNAME};/g" /etc/nginx/conf.d/keeweb.conf
+RUN sed -i "s/server_name.*/server_name ${SERVERNAME};/g" /etc/nginx/conf.d/keeweb.conf
 
 ADD entrypoint.sh /opt/entrypoint.sh
 RUN chmod a+x /opt/entrypoint.sh

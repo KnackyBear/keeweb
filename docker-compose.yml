@@ -1,7 +1,9 @@
 version: '3.2'
 services:
   keeweb:
+    image: jvinet/keeweb:compose
     build:
+      context: .
       dockerfile: dockerfile
       args: 
         - SERVERNAME=${KEEWEB_ENDPOINT}
