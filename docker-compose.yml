@@ -1,7 +1,10 @@
 version: '3.2'
 services:
   keeweb:
-    image: antelle/keeweb
+    image: jvinet/keeweb:compose
+    build:
+      context: .
+      dockerfile: dockerfile
     container_name: 'keeweb'
     labels:
       - "traefik.http.routers.keeweb.rule=Host(`${KEEWEB_ENDPOINT}`)"
