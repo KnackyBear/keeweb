@@ -14,7 +14,6 @@ services:
       - "traefik.http.routers.keeweb.tls.certResolver=le"
       - "traefik.http.routers.keeweb.tls.domains[0].main=${DOMAIN}"
       - "traefik.http.routers.keeweb.tls.domains[0].sans[0]=*.${DOMAIN}"
-      - "traefik.http.middlewares.keeweb.headers.customresponseheaders.Access-Control-Allow-Origin=*"
     networks:
       - web
 
