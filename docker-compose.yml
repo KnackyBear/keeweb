@@ -1,10 +1,7 @@
 version: '3.2'
 services:
   keeweb:
-    image: jvinet/keeweb:compose
-    build:
-      context: .
-      dockerfile: dockerfile
+    image: jvinet/keeweb:latest
     container_name: 'keeweb'
     labels:
       - "traefik.http.routers.keeweb.rule=Host(`${KEEWEB_ENDPOINT}`)"
@@ -14,7 +11,6 @@ services:
       - "traefik.http.routers.keeweb.tls.domains[0].sans[0]=*.${DOMAIN}"
     networks:
       - web
-
 networks:
   web:
     external: true
