@@ -1,7 +1,7 @@
 version: '3.2'
 services:
   keeweb:
-    image: jvinet/keeweb:latest
+    image: jnvinet/keeweb:latest
     container_name: 'keeweb'
     labels:
       - "traefik.http.routers.keeweb.rule=Host(`${KEEWEB_ENDPOINT}`)"
